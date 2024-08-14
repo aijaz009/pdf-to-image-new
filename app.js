@@ -47,7 +47,7 @@ app.post('/convert', upload.single('image'), (req, res) => {
 
     doc.end();
 
-    // Optional: Clean up the uploaded image after sending the PDF
+    // Clean up the uploaded image after sending the PDF
     doc.on('finish', () => {
         fs.unlinkSync(req.file.path); // Delete the uploaded image
     });
