@@ -4,7 +4,8 @@
   "description": "A simple Node.js application to convert images to PDF.",
   "main": "app.js",
   "scripts": {
-    "start": "node app.js"
+    "start": "node app.js",
+    "install": "npm install"
   },
   "dependencies": {
     "express": "^4.17.1",
@@ -12,6 +13,8 @@
     "pdfkit": "^0.12.1"
   },
   "engines": {
-    "node": ">=6.0.0"
-  }
+    "node": ">=14.0.0"
+  },
+  "author": "Your Name",
+  "license": "MIT"
 }
