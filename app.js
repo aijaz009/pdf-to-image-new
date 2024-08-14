@@ -30,10 +30,13 @@ app.get('/', (req, res) => {
 // Handle image upload and conversion to PDF
 app.post('/convert', upload.single('image'), (req, res) => {
     const doc = new PDFDocument();
-    const pdfPath = `uploads/${Date.now()}.pdf`;
 
-    // Pipe the PDF into a file
-    doc.pipe(fs.createWriteStream(pdfPath));
+    // Set the appropriate headers for streaming
+    res.setHeader('Content-Type', 'application/pdf');
+    res.setHeader('Content-Disposition', 'attachment; filename=image.pdf');
+
+    // Pipe the PDF directly to the response
+    doc.pipe(res);
 
     // Add the image to the PDF
     doc.image(req.file.path, {
@@ -44,16 +47,9 @@ app.post('/convert', upload.single('image'), (req, res) => {
 
     doc.end();
 
-    // Send the PDF file as a response
+    // Optional: Clean up the uploaded image after sending the PDF
     doc.on('finish', () => {
-        res.download(pdfPath, (err) => {
-            if (err) {
-                console.error(err);
-            }
-            // Optionally delete the uploaded image and generated PDF after download
-            fs.unlinkSync(req.file.path); // Delete the uploaded image
-            fs.unlinkSync(pdfPath); // Delete the generated PDF
-        });
+        fs.unlinkSync(req.file.path); // Delete the uploaded image
     });
 });
 
