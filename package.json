@@ -4,8 +4,7 @@
   "description": "A simple Node.js application to convert images to PDF.",
   "main": "app.js",
   "scripts": {
-    "start": "node app.js",
-    "install": "npm install"
+    "start": "node app.js"
   },
   "dependencies": {
     "express": "^4.17.1",
